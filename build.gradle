@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootBuildImage {
+    imageName = "docker.io/jorgecue/${project.name}:j11"
+    publish = false
+    docker {
+        publishRegistry {
+            username = "jorgecue"
+            url = "https://hub.docker.com"
+            email = "jorge.cue@gmail.com"
+            token = "a2d2c417-9b96-4e1a-867c-310dacc9e4f9"
+        }
+    }
+}
